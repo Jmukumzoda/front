@@ -130,6 +130,20 @@ function reload(arr) {
             let pr_age = +prompt('age')
             p.innerHTML = pr
             p1.innerHTML = year - pr_age
+            fetch(bas + "/todos/" + item.id, {
+                method: "PATCH",
+                body: JSON.stringify({ pr_age, pr}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then((res) => {
+                if (res.status === 200 || res.status === 201) {
+                   fetch(bas + "/todos")
+                   .then((res)=> res.json())
+                   .then((res)=> reload(res))
+
+                }
+            })
         }
 
     }
