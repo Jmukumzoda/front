@@ -132,13 +132,13 @@ function reload(arr) {
             p1.innerHTML = year - pr_age
             fetch(bas + "/todos/" + item.id, {
                 method: "PATCH",
-                body: JSON.stringify({ pr_age, pr}),
+                body: JSON.stringify({pr,pr_age}),
                 headers: {
                     "Content-Type": "application/json"
                 }
             }).then((res) => {
                 if (res.status === 200 || res.status === 201) {
-                   fetch(bas + "/todos")
+                   fetch(bas)
                    .then((res)=> res.json())
                    .then((res)=> reload(res))
 
