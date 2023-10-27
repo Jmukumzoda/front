@@ -1,26 +1,29 @@
 let form = document.querySelector(".todoask")
 let inp = form.querySelector("#todos")
-let inp1 = form.querySelector("#todo")
+let inp_name = form.querySelector("#todo")
 let container = document.querySelector('.tab')
+// let column_age25 = document.querySelector('#column1');
+// let column2 = document.querySelector('#column2');
+// let column3 = document.querySelector('#column3');
 let bas = " http://localhost:8080"
 
 fetch(bas + '/todos')
     .then((res) => res.json())
     .then((res) => reload(res))
-let todos1 = []
+
 let patterns = {
     name: /^[a-z ,.'-]+$/i,
     age: /^(0?[1-9]|[1-9][0-9]|[1][1-9][1-9]|100)$/i
 }
-inp1.onkeyup = () => {
-    if (patterns[inp1.name].test(inp1.value)) {
-        inp1.style.borderColor = 'blue'
-        inp1.classList.remove('error')
-        inp1.parentElement.classList.remove('error-field')
+inp_name.onkeyup = () => {
+    if (patterns[inp_name.name].test(inp_name.value)) {
+        inp_name.style.borderColor = 'blue'
+        inp_name.classList.remove('error')
+        inp_name.parentElement.classList.remove('error-field')
     } else {
-        inp1.parentElement.classList.add('error-field')
-        inp1.style.borderColor = 'red'
-        inp1.classList.add('error')
+        inp_name.parentElement.classList.add('error-field')
+        inp_name.style.borderColor = 'red'
+        inp_name.classList.add('error')
     }
 }
 inp.onkeyup = () => {
@@ -37,7 +40,7 @@ inp.onkeyup = () => {
 form.onsubmit = (e) => {
     e.preventDefault();
     let error = false
-    if (inp.parentElement.classList.contains('error-field') || inp1.parentElement.classList.contains('error-field')) {
+    if (inp.parentElement.classList.contains('error-field') || inp_name.parentElement.classList.contains('error-field')) {
         error = true
     }
     if (error) {
@@ -54,98 +57,143 @@ form.onsubmit = (e) => {
     }
     let todo = {
         id: Math.random(),
-        title: inp1.value,
-        title2: inp.value,
-        isDone: false,
-        time: new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()
+        name: inp_name.value,
+        age: inp.value
+    }
+    let inp_value = inp.value
+    if (inp_value < 25) {
+        fetch(bas + "/todos", {
+            method: "post",
+            body: JSON.stringify(todo),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.status === 200 || res.status === 201) {
+                fetch(bas + "/todos")
+                    .then((res) => res.json())
+                    .then((res) => reload(res))
+                inp.value = ""
+                inp_name.value = ""
+
+            }
+        })
+        return
+    } else if (inp_value >= 25 && inp_value <= 50) {
+        fetch(bas + "/todos", {
+            method: "post",
+            body: JSON.stringify(todo),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.status === 200 || res.status === 201) {
+                fetch(bas + "/todos")
+                    .then((res) => res.json())
+                    .then((res) => reload(res))
+                inp.value = ""
+                inp_name.value = ""
+
+            }
+        })
+    } else if (inp_value > 50) {
+        fetch(bas + "/todos", {
+            method: "post",
+            body: JSON.stringify(todo),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(res => {
+            if (res.status === 200 || res.status === 201) {
+                fetch(bas + "/todos")
+                    .then((res) => res.json())
+                    .then((res) => reload(res))
+                inp.value = ""
+                inp_name.value = ""
+
+            }
+        })
     }
 
 
-    fetch(bas + "/todos", {
-        method: "post",
-        body: JSON.stringify(todo),
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .then((res) => console.log(res))
-    todos1.push(todo)
-    console.log(todo);
-    reload(todos1)
 }
-reload(todos1)
-let year = 2023
 function reload(arr) {
     container.innerHTML = ""
     for (let item of arr) {
-        let tablet = document.createElement('table'),
-            div = document.createElement('div'),
-            tr = document.createElement('tr'),
-            th = document.createElement('th'),
+        let article = document.createElement('article'),
+            h1 = document.createElement('h1'),
+            text_art = document.createElement('div'),
+            h4 = document.createElement('h4'),
             p = document.createElement('p'),
-            p1 = document.createElement('p'),
+            div = document.createElement('div'),
             clsButton = document.createElement("button"),
             img = document.createElement("img"),
             writeButton = document.createElement("button"),
             write_img = document.createElement("img");
 
 
-        tablet.classList.add('tablet')
-        tr.classList.add('tr')
-        th.classList.add('th')
+
         clsButton.classList.add("del")
         writeButton.classList.add("write")
         div.classList.add("div")
+        article.classList.add("grid")
+        text_art.classList.add('text')
 
-
-        th.innerHTML = `${arr.indexOf(item) + 1}`
         img.src = "img/cls.svg"
         img.alt = "cls"
-        write_img.src = "img/write.svg"
+        write_img.src = "./img/6140897_design_draw_graphic_mouse_pencil_icon.png"
         write_img.alt = "write"
-        p.innerHTML = item.title
-        p1.innerHTML = year - item.title2
+        h1.innerHTML = item.name
+        h4.innerHTML = "Age"
+        p.innerHTML = item.age
 
-        container.append(tablet)
-        tablet.append(tr)
-        tr.append(th, p, p1, div)
+        container.append(article)
+        article.append(h1, text_art, div)
+        text_art.append(h4, p)
         div.append(writeButton, clsButton)
         writeButton.append(write_img)
         clsButton.append(img)
 
         clsButton.onclick = () => {
-            let idx = todos1.indexOf(todo)
-            todos1.splice(idx, 1)
-            tablet.classList.add('remove-anim')
             fetch(bas + "/todos/" + item.id, {
                 method: "delete"
             }).then((res) => {
                 if (res.status === 200 || res.status === 201) {
-                    tablet.remove()
+                    article.remove()
                 }
             })
         }
         writeButton.onclick = () => {
-            let pr = prompt('Изменить имя')
-            let pr_age = +prompt('age')
-            p.innerHTML = pr
-            p1.innerHTML = year - pr_age
+            let pr = prompt("Введите name:")
+            if (pr.valueOf() === "") {
+                alert('Введите имя  или будет ошибка')
+                return
+            }
+            let age_pr = prompt("Введите age:")
+            let val = {
+                name: pr.valueOf(),
+                age: age_pr.valueOf()
+            }
+          
+
+
+
             fetch(bas + "/todos/" + item.id, {
                 method: "PATCH",
-                body: JSON.stringify({pr,pr_age}),
+                body: JSON.stringify(val),
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-type": "application/json"
                 }
             }).then((res) => {
                 if (res.status === 200 || res.status === 201) {
-                   fetch(bas)
-                   .then((res)=> res.json())
-                   .then((res)=> reload(res))
+                    fetch(bas + "/todos")
+                        .then((res) => res.json())
+                        .then((res) => reload(res))
 
                 }
+                console.log(res);
             })
         }
-
     }
 }
 function submit() {

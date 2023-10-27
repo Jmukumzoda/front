@@ -29,7 +29,7 @@ img {
   color: #000;
   text-align: center;
   font-family: Gilroy;
-  font-size: 48px;
+  font-size: 35px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
@@ -67,6 +67,7 @@ img {
 
 .todos {
   margin-top: 30px;
+  height: 900px;
 }
 .todos hr {
   width: 71%;
@@ -81,10 +82,9 @@ img {
 .todos .wrap .box {
   width: 70%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: left;
   align-items: center;
-  gap: 25px;
+  gap: 265px;
   transition: 0.4s ease;
 }
 .todos .wrap .box .item {

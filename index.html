@@ -15,57 +15,22 @@
 	<link rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<style>
-		.material-symbols-outlined {
-			font-variation-settings:
-				'FILL' 0,
-				'wght' 400,
-				'GRAD' 0,
-				'opsz' 24
-		}
-
 		.error-field {
 			color: red !important;
-		}
-
-		.tr {
-			display: flex;
-			gap: 291px;
-		}
-
-		.tablet {
-			border-collapse: collapse;
-		}
-
-
-		.div {
-			display: flex;
-			gap: 10px;
-		}
-
-		.th,
-		.td {
-			color: #c4c4c4;
-			padding: 5px;
-		}
-
-		.tr1 {
-			display: flex;
-			gap: 273px;
-		}
-
-		.table {
-			border-collapse: collapse;
-		}
-
-		.th1,
-		.td {
-			color: #c4c4c4;
-			padding: 5px;
 		}
 
 		.tab {
 			padding-top: 14px;
 			padding-left: 15%;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 120px;
+		}
+
+		.div {
+			margin-top: 20px;
+			display: flex;
+			gap: 192px;
 		}
 
 		.del {
@@ -78,38 +43,43 @@
 			background-color: #ffff;
 			border: none;
 		}
+		.write_mouse:hover{
+			width: 90px;
+		}
 	</style>
 	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="./css2/style.css">
 </head>
 
 <body>
 	<section class="to-do">
 		<div class="wrap">
-			<h1>delete,change addition</h1>
+			<h1>Having registered a person in the form, add him to the required column</h1>
 
 			<form class="todoask" action="#">
 				<label>name</label>
 				<input type="text" name="name" id="todo">
 				<label>age</label>
 				<input type="text" name="age" id="todos">
-				<button>SHOW</button>
+				<button>Добавить</button>
 			</form>
 		</div>
 	</section>
 	<section class="todos">
 		<center>
-			<hr />
+			<hr/>
 		</center>
 		<div class="wrap">
 			<div class="box">
-				<table class="table">
-					<tr class="tr1">
-						<th class="th1">No</th>
-						<th class="th1">Name</th>
-						<th class="th1">year</th>
-						<th class="th1">action</th>
-					</tr>
-				</table>
+				<div class="column" id="column1">
+					<h2>people to 25</h2>
+				</div>
+				<div class="column" id="column2">
+					<h2>people to 50</h2>
+				</div>
+				<div class="column" id="column3">
+					<h2>rest</h2>
+				</div>
 			</div>
 		</div>
 		<div class="tab">
